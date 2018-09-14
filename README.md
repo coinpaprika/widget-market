@@ -129,3 +129,7 @@ Then add this to your HTML, replacing data parameters
      data-currency-list='["bch-bitcoin-cash", "eth-ethereum", "xrp-xrp", "bch-bitcoin-cash"]'></div>
 <script src="https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market@1.0.1/dist/widget.min.js"></script>
 ```
+
+## Live Demo
+
+[http://jsfiddle.net/jcrzb5ha/](http://jsfiddle.net/jcrzb5ha/6/)
