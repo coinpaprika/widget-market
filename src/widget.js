@@ -350,10 +350,13 @@
       return widgetFunctions.widgetHeaderElement(index) + widgetFunctions.widgetTableElement(index);
     },
     widgetHeaderElement: function(index){
-      return '<h1 class="cp-widget-title cp-translation translation_title">'+widgetFunctions.getTranslation(index, "title")+'</h1>' +
+      var title = (widgetsStates[index].isWordpress)
+        ? ''
+        : '<h1 class="cp-widget-title cp-translation translation_title">'+widgetFunctions.getTranslation(index, "title")+'</h1>';
+      return title +
         '<section class="cp-widget-header">' +
-        widgetFunctions.widgetSelectElement(index, 'primary_currency') +
-        widgetFunctions.widgetSelectElement(index, 'data_type') +
+          widgetFunctions.widgetSelectElement(index, 'primary_currency') +
+          widgetFunctions.widgetSelectElement(index, 'data_type') +
         '</section>';
     },
     widgetTableElement: function(index){
@@ -462,13 +465,13 @@
       return 'https://coinpaprika.com/coin/'+id+'/logo.png';
     },
     coin_link: function(id, index){
-      return 'https://coinpaprika.com/coin/'+ id + '/' + widgetFunctions.get_utm_link(index)
+      return 'https://coinpaprika.com' + '/coin/' + id + widgetFunctions.get_utm_link(index)
     },
     main_page_link: function(index){
-      return 'https://coinpaprika.com/' + widgetFunctions.get_utm_link(index);
+      return 'https://coinpaprika.com' + widgetFunctions.get_utm_link(index);
     },
     get_utm_link: function(index){
-      return 'utm_source=widget&utm_medium='+ ((widgetsStates[index].isWordpress) ? 'wordpress' : 'inline') +'&utm_campaign=ranking';
+      return '?utm_source=widget&utm_medium='+ ((widgetsStates[index].isWordpress) ? 'wordpress' : 'inline') +'&utm_campaign=ranking';
     },
     main_logo_link: function(){
       return widgetDefaults.img_src || widgetDefaults.origin_src +'/dist/img/logo_widget.svg'

@@ -273,6 +273,7 @@ $table-padding: 8px;
                 float: left;
                 width: 100%;
                 position: relative;
+                cursor: pointer;
 
                 > a {
                     position: absolute;
@@ -280,6 +281,7 @@ $table-padding: 8px;
                     height: 100%;
                     top: 0;
                     left: 0;
+                    z-index: 1;
                 }
 
                 .cp-widget-table__cell {
