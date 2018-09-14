@@ -1,0 +1,12 @@
+{
+  "title": "Crypto Market",
+  "name": "Name",
+  "price": "Price",
+  "volume": "Volume",
+  "change": "24h",
+  "show": "Show:",
+  "price_in": "Price in:",
+  "powered_by": "powered by",
+  "data_unavailable": "Data is currently unavailable",
+  "data_loading": "Data is loading..."
+}

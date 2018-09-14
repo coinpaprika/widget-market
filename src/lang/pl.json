@@ -1,0 +1,12 @@
+{
+  "title": "Crypto Market",
+  "name": "Nazwa",
+  "price": "Cena",
+  "volume": "Wolumen",
+  "change": "24h",
+  "data_type": "Pokaż:",
+  "primary_currency": "Cena w:",
+  "powered_by": "wspierany przez",
+  "data_unavailable": "Dane są obecnie niedostępne",
+  "data_loading": "Wczytywanie danych..."
+}

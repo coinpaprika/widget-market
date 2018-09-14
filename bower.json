@@ -1,0 +1,26 @@
+{
+  "name": "coinpaprika-widget-market",
+  "description": "A widget showing cryptocurrencies list with stats that you can easily embed in your website.",
+  "main": "src/widget.js",
+  "authors": [
+    "Coinpaprika <contact@coinpaprika.com> (https://coinpaprika.com/)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "coinpaprika",
+    "widget",
+    "cryptocurrency",
+    "market",
+    "stats",
+    "embed"
+  ],
+  "homepage": "https://github.com/coinpaprika/widget-market/",
+  "moduleType": [
+    "globals"
+  ],
+  "ignore": [
+    "/node-modules",
+    "/bower_components"
+  ],
+  "dependencies": {}
+}

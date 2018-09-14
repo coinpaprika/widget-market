@@ -1,0 +1,44 @@
+{
+  "name": "@coinpaprika/widget-market",
+  "version": "1.0.0",
+  "description": "A widget showing cryptocurrencies list with stats that you can easily embed in your website.",
+  "main": "src/widget.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/coinpaprika/widget-market/"
+  },
+  "scripts": {
+    "build": "npm run browserify && npm run uglify && npm run scss && npm run copy",
+    "browserify": "browserify src/widget.js --debug > dist/widget.js",
+    "uglify": "uglifyjs dist/widget.js --comments=/^[!]/ -mco dist/widget.min.js",
+    "scss": "sass-pack -o dist -s src/scss -q --minify=compressed",
+    "watch-css": "nodemon -e scss -x npm run scss",
+    "copy": "npm run copy-lang && npm run copy-img",
+    "copy-lang": "copyfiles './src/lang/*' -f ./dist/lang/ && echo 'Lang files copied.'",
+    "copy-img": "copyfiles './src/img/*' -f ./dist/img/ && echo 'Img files copied.'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "coinpaprika",
+    "widget",
+    "cryptocurrency",
+    "market",
+    "stats",
+    "embed"
+  ],
+  "author": "Coinpaprika <contact@coinpaprika.com> (https://coinpaprika.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/coinpaprika/widget-market/issues"
+  },
+  "homepage": "https://coinpaprika.com",
+  "dependencies": {
+    "browserify": "^16.2.2",
+    "copyfiles": "^2.1.0",
+    "sass-pack": "^2.2.1",
+    "uglify-js": "^3.4.9"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
