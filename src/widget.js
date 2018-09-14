@@ -16,7 +16,7 @@
     style_src: null,
     img_src: null,
     lang_src: null,
-    origin_src: 'https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market@1.0.1',
+    origin_src: 'https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market@1.0.2',
     show_details_currency: true,
     emptyData: '-',
     emptyValue: 0,

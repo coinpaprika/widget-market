@@ -1,6 +1,6 @@
 {
   "name": "@coinpaprika/widget-market",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A widget showing cryptocurrencies list with stats that you can easily embed in your website.",
   "main": "src/widget.js",
   "repository": {
