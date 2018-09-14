@@ -73,7 +73,7 @@
         if (mainElement.dataset.primaryCurrency) widgetFunctions.updateData(index, 'primary_currency', mainElement.dataset.primaryCurrency);
         if (mainElement.dataset.dataTypeList) widgetFunctions.updateData(index, 'data_type_list', JSON.parse(mainElement.dataset.dataTypeList));
         if (mainElement.dataset.dataType) widgetFunctions.updateData(index, 'data_type', mainElement.dataset.dataType);
-        if (mainElement.dataset.currency_list) widgetFunctions.updateData(index, 'currency_list', JSON.parse(mainElement.dataset.currencyList));
+        if (mainElement.dataset.currencyList) widgetFunctions.updateData(index, 'currency_list', JSON.parse(mainElement.dataset.currencyList));
         if (mainElement.dataset.currency) widgetFunctions.updateData(index, 'currency', mainElement.dataset.currency);
         if (mainElement.dataset.showDetailsCurrency) widgetFunctions.updateData(index, 'show_details_currency', (mainElement.dataset.showDetailsCurrency === 'true'));
         if (mainElement.dataset.updateActive) widgetFunctions.updateData(index, 'update_active', (mainElement.dataset.updateActive === 'true'));
@@ -121,6 +121,9 @@
         var sibling = event.target.parentNode.childNodes[i];
         if (sibling.classList.contains(className)) sibling.classList.remove(className);
       }
+      var mainElement = widgetFunctions.getMainElement(index);
+      var tableHeadCell = mainElement.querySelector('.cp-widget-table__head .cp-widget-table__cell--data-value');
+      tableHeadCell.innerText = event.target.innerText;
       var parent = event.target.closest('.cp-widget-select');
       var type = parent.dataset.type;
       var pickedValueElement = parent.querySelector('.cp-widget-select__options > span');
