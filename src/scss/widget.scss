@@ -493,6 +493,7 @@ $table-padding: 8px;
 
         &-select {
             position: relative;
+            display: inline-block;
 
             &__options {
                 > span {
@@ -512,7 +513,7 @@ $table-padding: 8px;
                     right: 0;
                     top: 15px;
                     background: white;
-                    z-index: 1;
+                    z-index: 2;
 
                     > button {
                         width: 100%;

@@ -128,9 +128,10 @@
       var type = parent.dataset.type;
       var pickedValueElement = parent.querySelector('.cp-widget-select__options > span');
       var value = event.target.dataset.option;
-      pickedValueElement.innerText = ((type !== 'primary_currency') ? widgetFunctions.getTranslation(index, value.toLowerCase()) : value);
+      pickedValueElement.innerText = ((type !== 'primary_currency')
+        ? widgetFunctions.getTranslation(index, value.toLowerCase())
+        : value);
       widgetFunctions.updateData(index, type, value);
-      if (type === 'primary_currency') widgetFunctions.getData(index);
       event.target.classList.add(className);
     },
     initInterval: function(index){
@@ -142,23 +143,24 @@
       }
     },
     getData: function(index){
-      var xhr = {};
-      for (var i = 0; i < widgetsStates[index].currency_list.length; i++){
-        xhr[i] = new XMLHttpRequest();
-        xhr[i].open('GET', 'https://api.coinpaprika.com/v1/widget/'+widgetsStates[index].currency_list[i]+'?quote='+widgetsStates[index].primary_currency);
-        xhr[i].onload = function() {
-          if (this.status === 200) {
-            if (!widgetsStates[index].isData) widgetFunctions.updateData(index, 'isData', true);
-            widgetFunctions.updateTicker(index, JSON.parse(this.responseText));
-          } else {
-            widgetFunctions.onErrorRequest(index, this);
+      var xhr = new XMLHttpRequest();
+      var currency_list = JSON.stringify(widgetsStates[index].currency_list).replace('[', '').replace(']', '').split('"').join('');
+      xhr.open('GET', 'https://api.coinpaprika.com/v1/widget_list/'+currency_list);
+      xhr.onload = function() {
+        if (this.status === 200) {
+          if (!widgetsStates[index].isData) widgetFunctions.updateData(index, 'isData', true);
+          for (var i = 0; i < widgetsStates[index].currency_list.length; i++){
+            widgetFunctions.updateTicker(index, JSON.parse(this.responseText)[widgetsStates[index].currency_list[i]]);
           }
-        };
-        xhr[i].onerror = function(){
+          
+        } else {
           widgetFunctions.onErrorRequest(index, this);
-        };
-        xhr[i].send();
-      }
+        }
+      };
+      xhr.onerror = function(){
+        widgetFunctions.onErrorRequest(index, this);
+      };
+      xhr.send();
     },
     onErrorRequest: function(index, xhr){
       if (widgetsStates[index].isData) widgetFunctions.updateData(index, 'isData', false);
@@ -195,7 +197,7 @@
           }
           widgetFunctions.getImage(index, currency);
         }
-        if (key === 'isData' || key === 'message' || key === 'data_type'){
+        if (key === 'isData' || key === 'message' || key === 'data_type' || key === 'primary_currency'){
           var headerElements = mainElement.querySelectorAll('.cp-widget-table__body');
           for(var l = 0; l < headerElements.length; l++) {
             headerElements[l].innerHTML = (!state.isData) ? widgetFunctions.widgetTableElementMessage(index) : widgetFunctions.widgetTableElementData(index);
@@ -230,6 +232,23 @@
         }
       }
     },
+    updateTicker: function(index, data){
+      var quoteKeys = Object.keys(data.quote);
+      var template = JSON.parse(JSON.stringify(data));
+      delete template.quote;
+      for(var j = 0; j < quoteKeys.length; j++){
+        var quoteData = JSON.parse(JSON.stringify(data.quote[quoteKeys[j]]));
+        quoteData = Object.assign(quoteData, JSON.parse(JSON.stringify(template)));
+        quoteData.id = data.id + '-' + quoteKeys[j];
+        quoteData.currency_id = data.id;
+        quoteData.quote_id = quoteKeys[j];
+        widgetsStates[index].ticker[quoteData.id] = quoteData;
+        var dataKeys = Object.keys(quoteData);
+        for (var i = 0; i < dataKeys.length; i++){
+          if (quoteData.quote_id === widgetsStates[index].primary_currency.toLowerCase())widgetFunctions.updateWidgetElement(index, dataKeys[i], quoteData[dataKeys[i]], quoteData.currency_id);
+        }
+      }
+    },
     updateData: function(index, key, value, currency){
       if (currency){
         if (!widgetsStates[index].ticker[currency]) widgetsStates[index].ticker[currency] = {};
@@ -240,7 +259,8 @@
       if (key === 'language'){
         widgetFunctions.getTranslations(value);
       }
-      widgetFunctions.updateWidgetElement(index, key, value, currency);
+      var currency_id = (widgetsStates[index].ticker[currency]) ? widgetsStates[index].ticker[currency].currency_id : undefined;
+      if ((currency_id && widgetsStates[index].ticker[currency].quote_id === widgetsStates[index].primary_currency.toLowerCase()) || !currency) widgetFunctions.updateWidgetElement(index, key, value, currency_id);
     },
     updateWidgetTranslations: function(lang, data){
       widgetDefaults.translations[lang] = data;
@@ -267,12 +287,6 @@
             })
           }
         }
-      }
-    },
-    updateTicker: function(index, data){
-      var dataKeys = Object.keys(data);
-      for (var i = 0; i < dataKeys.length; i++){
-        widgetFunctions.updateData(index, dataKeys[i], data[dataKeys[i]], data.id);
       }
     },
     parseIntervalValue: function(value){
@@ -382,7 +396,7 @@
       var rows = '';
       for (var i = 0; i < widgetsStates[index]['currency_list'].length; i++){
         var currency = widgetsStates[index]['currency_list'][i];
-        var data = widgetsStates[index].ticker[currency];
+        var data = widgetsStates[index].ticker[currency+'-'+widgetsStates[index].primary_currency.toLowerCase()];
         var dataType = (widgetsStates[index].data_type.toLowerCase() === 'volume')
           ? widgetsStates[index].data_type.toLowerCase() + '_24h'
           : widgetsStates[index].data_type.toLowerCase();
