@@ -16,7 +16,7 @@
     style_src: null,
     img_src: null,
     lang_src: null,
-    origin_src: 'https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market@1.0.3',
+    origin_src: 'https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market@1.0.4',
     show_details_currency: true,
     emptyData: '-',
     emptyValue: 0,
@@ -56,10 +56,10 @@
         var mediumClassName = widgetDefaults.className + '__medium';
         var hasSmallClass = elements[i].classList.contains(smallClassName);
         var hasMediumClass = elements[i].classList.contains(mediumClassName);
-        if (width <= 300 && !hasSmallClass) elements[i].classList.add(smallClassName);
-        if (width > 300 && hasSmallClass) elements[i].classList.remove(smallClassName);
-        if (width <= 360 && !hasMediumClass) elements[i].classList.add(mediumClassName);
-        if (width > 360 && hasMediumClass) elements[i].classList.remove(mediumClassName);
+        if (width <= 320 && !hasSmallClass) elements[i].classList.add(smallClassName);
+        if (width > 320 && hasSmallClass) elements[i].classList.remove(smallClassName);
+        if (width <= 370 && !hasMediumClass) elements[i].classList.add(mediumClassName);
+        if (width > 370 && hasMediumClass) elements[i].classList.remove(mediumClassName);
       }
     },
     getMainElement: function(index){
@@ -152,9 +152,9 @@
         if (this.status === 200) {
           if (!widgetsStates[index].isData) widgetFunctions.updateData(index, 'isData', true);
           for (var i = 0; i < widgetsStates[index].currency_list.length; i++){
-            widgetFunctions.updateTicker(index, JSON.parse(this.responseText)[widgetsStates[index].currency_list[i]]);
+            var data = JSON.parse(this.responseText);
+            if (data[widgetsStates[index].currency_list[i]]) widgetFunctions.updateTicker(index, data[widgetsStates[index].currency_list[i]]);
           }
-          
         } else {
           widgetFunctions.onErrorRequest(index, this);
         }
@@ -351,7 +351,7 @@
       if (!decimal) decimal = 8;
       if (!direction) direction = 'round';
       decimal = Math.pow(10, decimal);
-      return Math[direction](amount * decimal) / decimal;
+      return widgetFunctions.scientificToDecimal(Math[direction](amount * decimal) / decimal);
     },
     stylesheet: function(){
       if (widgetDefaults.style_src !== false){
@@ -408,7 +408,7 @@
                     '<img src="https://coinpaprika.com/coin/'+ currency +'/logo.png" alt="">' +
                     '<span class="cp-widget-table__cell--name__text-box">' +
                       '<span class="cp-widget-table__cell--name__text-box--name nameTicker'+currency.toUpperCase()+'">'+((data) ? data.name : "No data")+'</span>' +
-                      '<span class="cp-widget-table__cell--name__text-box--symbol symbolTicker'+currency.toUpperCase()+'">'+((data) ? data.symbol : "")+'</span>' +
+                      '<span class="cp-widget-table__cell--name__text-box--symbol symbolTicker'+currency.toUpperCase()+'">'+((data) ? data.symbol : currency.split('-')[0].toUpperCase())+'</span>' +
                     '</span>' +
                   '</span>' +
                   '<span class="cp-widget-table__cell cp-widget-table__cell--data">'+
@@ -533,6 +533,23 @@
         xhr.send();
         widgetDefaults.translations[lang] = {};
       }
+    },
+    scientificToDecimal: function (x) {
+      if (Math.abs(x) < 1.0) {
+        var e = parseInt(x.toString().split('e-')[1]);
+        if (e) {
+          x *= Math.pow(10,e-1);
+          x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+        }
+      } else {
+        var e = parseInt(x.toString().split('+')[1]);
+        if (e > 20) {
+          e -= 20;
+          x /= Math.pow(10,e);
+          x += (new Array(e+1)).join('0');
+        }
+      }
+      return x;
     },
   };
   
