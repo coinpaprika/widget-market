@@ -16,7 +16,7 @@
     style_src: null,
     img_src: null,
     lang_src: null,
-    origin_src: 'https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market@1.0.4',
+    origin_src: 'https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market',
     show_details_currency: true,
     emptyData: '-',
     emptyValue: 0,
@@ -447,7 +447,7 @@
       return '<div data-type="'+label+'" class="cp-widget-select">' +
         '<label class="cp-translation translation_'+ label +'">'+title+'</label>' +
         '<div class="cp-widget-select__options">' +
-        '<span class="arrow-down '+ ((label === 'primary_currency') ? '' : 'cp-translation translation_' + widgetsStates[index][label].toLowerCase()) +'">'+ ((label !== 'primary_currency') ? widgetFunctions.getTranslation(index, widgetsStates[index][label].toLowerCase()) : widgetsStates[index][label]) +'</span>' +
+        '<span class="arrow-down '+ ((label === 'primary_currency') ? 'cp-widget__uppercase' : 'cp-widget__capitalize cp-translation translation_' + widgetsStates[index][label].toLowerCase()) +'">'+ ((label !== 'primary_currency') ? widgetFunctions.getTranslation(index, widgetsStates[index][label].toLowerCase()) : widgetsStates[index][label]) +'</span>' +
         '<div class="cp-widget-select__dropdown">' +
         buttons +
         '</div>' +

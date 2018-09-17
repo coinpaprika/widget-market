@@ -51,7 +51,7 @@ default: 'en'
 
 **origin-src** - custom link to `/dist` directory
 ```text
-default: 'https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market@1.0.4'
+default: 'https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market'
 ```
 
 **style-src** - custom link to css file, if you don't want to fetch styles from js set as `false`
@@ -90,7 +90,7 @@ Enable styling for dark backgrounds by adding `cp-widget__night-mode` class to w
      data-currency-list='["bch-bitcoin-cash", "eth-ethereum", "xrp-xrp", "bch-bitcoin-cash"]'
      data-update-active="false" 
      data-update-timeout="30s"></div>
-<script src="https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market@1.0.4/dist/widget.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market/dist/widget.min.js"></script>
 ```
 
 ### Via npm
@@ -127,9 +127,9 @@ Then add this to your HTML, replacing data parameters
 <div class="coinpaprika-market-widget"></div>
 <div class="coinpaprika-market-widget" 
      data-currency-list='["bch-bitcoin-cash", "eth-ethereum", "xrp-xrp", "bch-bitcoin-cash"]'></div>
-<script src="https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market@1.0.4/dist/widget.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@coinpaprika/widget-market/dist/widget.min.js"></script>
 ```
 
 ## Live Demo
 
-[http://jsfiddle.net/jcrzb5ha/](http://jsfiddle.net/jcrzb5ha/13/)
+[http://jsfiddle.net/jcrzb5ha/](http://jsfiddle.net/jcrzb5ha/15)

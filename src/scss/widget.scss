@@ -32,78 +32,6 @@ $table-padding: 8px;
     font-weight: 400;
     float: left;
 
-    &.cp-widget__night-mode {
-        color: $grey;
-
-        .arrow-down {
-            color: $lightblue;
-
-            &:before {
-                border-top-color: $lightblue;
-            }
-        }
-
-        .cp-widget {
-            &-title {
-                color: $superlightgrey;
-            }
-
-            &-select {
-                &__options {
-                    > div {
-                        > button {
-                            color: $lightblue;
-
-                            &.cp-widget-active {
-                                color: $grey;
-                            }
-                        }
-                    }
-                }
-            }
-
-            &-table {
-                border-color: $lightdarkgrey;
-
-                &__head {
-                    border-bottom-color: $lightdarkgrey;
-                }
-
-                &__body{
-                    .cp-widget-table__row {
-                        border-bottom-color: $lightdarkgrey;
-
-                        &:last-child {
-                            border-bottom-color: transparent;
-                        }
-                    }
-
-                    .cp-widget-table__cell {
-                        &--name {
-                            &__text-box {
-                                &--name {
-                                    color: $lightblue;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                &__cell {
-                    border-right-color: $lightdarkgrey;
-                }
-            }
-
-            &-footer {
-                color: $grey;
-
-                a {
-                    color: $lightblue;
-                }
-            }
-        }
-    }
-
     .arrow-down {
         position: relative;
         color: $blue;
@@ -143,6 +71,14 @@ $table-padding: 8px;
     }
 
     .cp-widget {
+        &__uppercase {
+            text-transform: uppercase;
+        }
+
+        &__capitalize {
+            text-transform: capitalize;
+        }
+
         &__rank {
             &-label {
                 padding: 2px 5px;
@@ -372,6 +308,78 @@ $table-padding: 8px;
             }
         }
     }
+
+    &.cp-widget__night-mode {
+        color: $grey;
+
+        .arrow-down {
+            color: $lightblue;
+
+            &:before {
+                border-top-color: $lightblue;
+            }
+        }
+
+        .cp-widget {
+            &-title {
+                color: $superlightgrey;
+            }
+
+            &-select {
+                &__options {
+                    > div {
+                        > button {
+                            color: $lightblue;
+
+                            &.cp-widget-active {
+                                color: $grey;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &-table {
+                border-color: $lightdarkgrey;
+
+                &__head {
+                    border-bottom-color: $lightdarkgrey;
+                }
+
+                &__body{
+                    .cp-widget-table__row {
+                        border-bottom-color: $lightdarkgrey;
+
+                        &:last-child {
+                            border-bottom-color: transparent;
+                        }
+                    }
+
+                    .cp-widget-table__cell {
+                        &--name {
+                            &__text-box {
+                                &--name {
+                                    color: $lightblue;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__cell {
+                    border-right-color: $lightdarkgrey;
+                }
+            }
+
+            &-footer {
+                color: $grey;
+
+                a {
+                    color: $lightblue;
+                }
+            }
+        }
+    }
 }
 
 .coinpaprika-market-widget__medium {
@@ -498,7 +506,6 @@ $table-padding: 8px;
             &__options {
                 > span {
                     display: inline-block;
-                    text-transform: capitalize;
                 }
 
                 > div {
